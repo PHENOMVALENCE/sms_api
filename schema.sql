@@ -1,19 +1,24 @@
--- Student Management System Database Schema
+-- Student Management System Database Schema (Revised)
+-- This script is safe to run on a fresh database. For existing
+-- installations, see the migration notes in README.md.
 
--- Create database
-CREATE DATABASE IF NOT EXISTS sms_api;
+-- Create database (adjust name if needed)
+CREATE DATABASE IF NOT EXISTS sms_api
+  DEFAULT CHARACTER SET utf8mb4
+  DEFAULT COLLATE utf8mb4_unicode_ci;
+
 USE sms_api;
 
 -- Create students table
 CREATE TABLE IF NOT EXISTS students (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    phone VARCHAR(20),
-    date_of_birth DATE,
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    email VARCHAR(191) NOT NULL UNIQUE,
+    phone VARCHAR(20) DEFAULT NULL,
+    date_of_birth DATE DEFAULT NULL,
     gender ENUM('Male', 'Female', 'Other') DEFAULT NULL,
-    address TEXT,
+    address TEXT DEFAULT NULL,
     enrollment_date DATE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
